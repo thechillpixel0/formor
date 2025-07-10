@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Landing from './pages/Landing';
 import Home from './pages/Home';
@@ -28,7 +28,7 @@ import Collections from './pages/Collections';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/">
       <Routes>
         {/* Public landing page */}
         <Route path="/" element={<Landing />} />
@@ -36,6 +36,7 @@ function App() {
         {/* Public form attempt routes - no layout */}
         <Route path="/form/:formId" element={<AttemptForm />} />
         <Route path="/attempt/:formId" element={<AttemptForm />} />
+        <Route path="/f/:formId" element={<AttemptForm />} />
         <Route path="/thanks" element={<Thanks />} />
         
         {/* Admin routes with layout */}
@@ -151,14 +152,7 @@ function App() {
         } />
         
         {/* Catch all route */}
-        <Route path="*" element={
-          <Layout>
-            <div className="text-center py-12">
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Page Not Found</h1>
-              <p className="text-gray-600">The page you're looking for doesn't exist.</p>
-            </div>
-          </Layout>
-        } />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

@@ -1,14 +1,38 @@
 import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import { CheckCircle, Home, Award, Brain, ClipboardList } from 'lucide-react';
+import { useLocation, Link, useParams } from 'react-router-dom';
+import { CheckCircle, Home, Award, Brain, ClipboardList, Download } from 'lucide-react';
 import { formatDate } from '../utils';
+import { storage } from '../utils/storage';
 
 const Thanks: React.FC = () => {
   const location = useLocation();
+  const { formId } = useParams();
   const { formTitle, userName, submittedAt, isQuiz, score, maxScore } = location.state || {};
 
   const percentage = score && maxScore ? Math.round((score / maxScore) * 100) : 0;
+  
+  // Check if certificate is available
+  const form = formId ? storage.getForm(formId) : null;
+  const canDownloadCertificate = form?.type === 'quiz' && 
+                                form?.certificateEnabled && 
+                                percentage >= (form?.passingScore || 60);
 
+  const downloadCertificate = () => {
+    if (!canDownloadCertificate || !userName) return;
+    
+    // Create a simple certificate (in a real app, this would generate a proper PDF)
+    const certificateData = {
+      recipientName: userName,
+      formTitle: formTitle || 'Quiz',
+      score: `${score}/${maxScore}`,
+      percentage: `${percentage}%`,
+      date: new Date().toLocaleDateString(),
+      passed: percentage >= (form?.passingScore || 60)
+    };
+    
+    // For demo, just show an alert. In production, generate actual PDF
+    alert(`Certificate generated for ${userName}!\nScore: ${score}/${maxScore} (${percentage}%)\nDate: ${certificateData.date}`);
+  };
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-sm border max-w-md w-full text-center">
@@ -89,6 +113,12 @@ const Thanks: React.FC = () => {
           className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
         >
           <Home className="h-4 w-4" />
+            {canDownloadCertificate && (
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-gray-600">Certificate:</span>
+                <span className="font-medium text-green-600">Available</span>
+              </div>
+            )}
           <span>Return to Home</span>
         </Link>
       </div>
@@ -97,3 +127,21 @@ const Thanks: React.FC = () => {
 };
 
 export default Thanks;
+      <div className="flex flex-col space-y-3">
+        {canDownloadCertificate && (
+          <button
+            onClick={downloadCertificate}
+            className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+          >
+            <Download className="h-4 w-4" />
+            <span>Download Certificate</span>
+          </button>
+        )}
+        <Link
+          to="/home"
+          className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+        >
+          <Home className="h-4 w-4" />
+          <span>Return to Home</span>
+        </Link>
+      </div>

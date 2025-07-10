@@ -205,6 +205,17 @@ const AttemptForm: React.FC = () => {
 
       storage.saveResponse(response);
 
+      // Auto-generate certificate if enabled and user passed
+      if (form.type === 'quiz' && form.certificateEnabled && results) {
+        const percentage = (results.score / results.maxScore) * 100;
+        const passingScore = form.passingScore || 60;
+        
+        if (percentage >= passingScore) {
+          // Mark response as certificate eligible
+          const updatedResponse = { ...response, certificateGenerated: true, passed: true };
+          storage.saveResponse(updatedResponse);
+        }
+      }
       // Send notification to admin (in a real app, this would be an API call)
       const adminNotification = {
         id: generateId(),

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Save, Download, Upload, Move, Type, Image as ImageIcon, Palette } from 'lucide-react';
+import { ArrowLeft, Save, Download, Upload, Move, Type, Image as ImageIcon, Palette, X, Eye, EyeOff } from 'lucide-react';
 import { storage } from '../utils/storage';
 import { generateId } from '../utils';
 import { Certificate, CertificateTemplate } from '../types';
@@ -20,6 +20,7 @@ const CertificateEditor: React.FC = () => {
     }
   });
   const [selectedElement, setSelectedElement] = useState<string | null>(null);
+  const [showPreview, setShowPreview] = useState(true);
   const [previewData, setPreviewData] = useState({
     recipientName: 'John Doe',
     score: '85',
@@ -129,6 +130,13 @@ const CertificateEditor: React.FC = () => {
         </div>
         <div className="flex space-x-3">
           <button
+            onClick={() => setShowPreview(!showPreview)}
+            className="flex items-center space-x-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+          >
+            {showPreview ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            <span>{showPreview ? 'Hide Preview' : 'Show Preview'}</span>
+          </button>
+          <button
             onClick={handleSave}
             className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
@@ -138,19 +146,29 @@ const CertificateEditor: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className={`grid gap-8 ${showPreview ? 'grid-cols-1 lg:grid-cols-3' : 'grid-cols-1 lg:grid-cols-2'}`}>
         {/* Certificate Preview */}
-        <div className="lg:col-span-2">
+        {showPreview && (
+        <div className={showPreview ? 'lg:col-span-2' : 'hidden'}>
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Certificate Preview</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-gray-900">Certificate Preview</h2>
+              <button
+                onClick={() => setSelectedElement(null)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
             
             <div 
-              className="relative w-full h-96 border-2 border-dashed border-gray-300 rounded-lg overflow-hidden"
+              className="relative w-full h-96 border-2 border-dashed border-gray-300 rounded-lg overflow-hidden cursor-pointer"
               style={{
                 backgroundImage: template.backgroundImage ? `url(${template.backgroundImage})` : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center'
               }}
+              onClick={() => setSelectedElement(null)}
             >
               {/* Logo */}
               {template.logoImage && (
@@ -164,7 +182,9 @@ const CertificateEditor: React.FC = () => {
 
               {/* Title */}
               <div
-                className="absolute cursor-pointer hover:bg-blue-100 hover:bg-opacity-20 p-2 rounded"
+                className={`absolute cursor-pointer hover:bg-blue-100 hover:bg-opacity-20 p-2 rounded transition-all ${
+                  selectedElement === 'title' ? 'ring-2 ring-blue-500 bg-blue-100 bg-opacity-20' : ''
+                }`}
                 style={{
                   left: `${template.layout.title.x}%`,
                   top: `${template.layout.title.y}%`,
@@ -174,14 +194,19 @@ const CertificateEditor: React.FC = () => {
                   fontWeight: 'bold',
                   textAlign: 'center'
                 }}
-                onClick={() => setSelectedElement('title')}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedElement('title');
+                }}
               >
                 {template.layout.title.text}
               </div>
 
               {/* Recipient Name */}
               <div
-                className="absolute cursor-pointer hover:bg-blue-100 hover:bg-opacity-20 p-2 rounded"
+                className={`absolute cursor-pointer hover:bg-blue-100 hover:bg-opacity-20 p-2 rounded transition-all ${
+                  selectedElement === 'recipientName' ? 'ring-2 ring-blue-500 bg-blue-100 bg-opacity-20' : ''
+                }`}
                 style={{
                   left: `${template.layout.recipientName.x}%`,
                   top: `${template.layout.recipientName.y}%`,
@@ -191,7 +216,10 @@ const CertificateEditor: React.FC = () => {
                   fontWeight: 'bold',
                   textAlign: 'center'
                 }}
-                onClick={() => setSelectedElement('recipientName')}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedElement('recipientName');
+                }}
               >
                 {previewData.recipientName}
               </div>
@@ -199,7 +227,9 @@ const CertificateEditor: React.FC = () => {
               {/* Score */}
               {template.layout.score.show && (
                 <div
-                  className="absolute cursor-pointer hover:bg-blue-100 hover:bg-opacity-20 p-2 rounded"
+                  className={`absolute cursor-pointer hover:bg-blue-100 hover:bg-opacity-20 p-2 rounded transition-all ${
+                    selectedElement === 'score' ? 'ring-2 ring-blue-500 bg-blue-100 bg-opacity-20' : ''
+                  }`}
                   style={{
                     left: `${template.layout.score.x}%`,
                     top: `${template.layout.score.y}%`,
@@ -208,7 +238,10 @@ const CertificateEditor: React.FC = () => {
                     color: template.layout.score.color,
                     textAlign: 'center'
                   }}
-                  onClick={() => setSelectedElement('score')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedElement('score');
+                  }}
                 >
                   Score: {previewData.score}/{previewData.maxScore} ({Math.round((parseInt(previewData.score) / parseInt(previewData.maxScore)) * 100)}%)
                 </div>
@@ -216,7 +249,9 @@ const CertificateEditor: React.FC = () => {
 
               {/* Date */}
               <div
-                className="absolute cursor-pointer hover:bg-blue-100 hover:bg-opacity-20 p-2 rounded"
+                className={`absolute cursor-pointer hover:bg-blue-100 hover:bg-opacity-20 p-2 rounded transition-all ${
+                  selectedElement === 'date' ? 'ring-2 ring-blue-500 bg-blue-100 bg-opacity-20' : ''
+                }`}
                 style={{
                   left: `${template.layout.date.x}%`,
                   top: `${template.layout.date.y}%`,
@@ -225,14 +260,19 @@ const CertificateEditor: React.FC = () => {
                   color: template.layout.date.color,
                   textAlign: 'center'
                 }}
-                onClick={() => setSelectedElement('date')}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedElement('date');
+                }}
               >
                 {previewData.date}
               </div>
 
               {/* Form Title */}
               <div
-                className="absolute cursor-pointer hover:bg-blue-100 hover:bg-opacity-20 p-2 rounded"
+                className={`absolute cursor-pointer hover:bg-blue-100 hover:bg-opacity-20 p-2 rounded transition-all ${
+                  selectedElement === 'formTitle' ? 'ring-2 ring-blue-500 bg-blue-100 bg-opacity-20' : ''
+                }`}
                 style={{
                   left: `${template.layout.formTitle.x}%`,
                   top: `${template.layout.formTitle.y}%`,
@@ -241,7 +281,10 @@ const CertificateEditor: React.FC = () => {
                   color: template.layout.formTitle.color,
                   textAlign: 'center'
                 }}
-                onClick={() => setSelectedElement('formTitle')}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedElement('formTitle');
+                }}
               >
                 {previewData.formTitle}
               </div>
@@ -258,6 +301,7 @@ const CertificateEditor: React.FC = () => {
             </div>
           </div>
         </div>
+        )}
 
         {/* Controls Panel */}
         <div className="space-y-6">
@@ -331,9 +375,17 @@ const CertificateEditor: React.FC = () => {
           {/* Element Editor */}
           {selectedElement && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                Edit {selectedElement.charAt(0).toUpperCase() + selectedElement.slice(1)}
-              </h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Edit {selectedElement.charAt(0).toUpperCase() + selectedElement.slice(1)}
+                </h3>
+                <button
+                  onClick={() => setSelectedElement(null)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
               
               <div className="space-y-4">
                 {selectedElement === 'title' && (
@@ -423,47 +475,49 @@ const CertificateEditor: React.FC = () => {
           )}
 
           {/* Preview Data */}
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Preview Data</h3>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Recipient Name
-                </label>
-                <input
-                  type="text"
-                  value={previewData.recipientName}
-                  onChange={(e) => setPreviewData(prev => ({ ...prev, recipientName: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
+          {showPreview && (
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Preview Data</h3>
+              
+              <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Score
+                    Recipient Name
                   </label>
                   <input
-                    type="number"
-                    value={previewData.score}
-                    onChange={(e) => setPreviewData(prev => ({ ...prev, score: e.target.value }))}
+                    type="text"
+                    value={previewData.recipientName}
+                    onChange={(e) => setPreviewData(prev => ({ ...prev, recipientName: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Max Score
-                  </label>
-                  <input
-                    type="number"
-                    value={previewData.maxScore}
-                    onChange={(e) => setPreviewData(prev => ({ ...prev, maxScore: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Score
+                    </label>
+                    <input
+                      type="number"
+                      value={previewData.score}
+                      onChange={(e) => setPreviewData(prev => ({ ...prev, score: e.target.value }))}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Max Score
+                    </label>
+                    <input
+                      type="number"
+                      value={previewData.maxScore}
+                      onChange={(e) => setPreviewData(prev => ({ ...prev, maxScore: e.target.value }))}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

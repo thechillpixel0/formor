@@ -20,7 +20,7 @@ const FormSummary: React.FC = () => {
     return <div>Form not found</div>;
   }
 
-  const shareUrl = `${window.location.origin}/attempt/${formId}`;
+  const shareUrl = `${window.location.origin}/f/${formId}`;
   const editUrl = `${window.location.origin}/edit/${formId}`;
 
   const copyToClipboard = () => {
