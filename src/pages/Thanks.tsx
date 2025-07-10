@@ -33,6 +33,7 @@ const Thanks: React.FC = () => {
     // For demo, just show an alert. In production, generate actual PDF
     alert(`Certificate generated for ${userName}!\nScore: ${score}/${maxScore} (${percentage}%)\nDate: ${certificateData.date}`);
   };
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-sm border max-w-md w-full text-center">
@@ -93,6 +94,12 @@ const Thanks: React.FC = () => {
               </div>
             </>
           )}
+          {canDownloadCertificate && (
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-gray-600">Certificate:</span>
+              <span className="font-medium text-green-600">Available</span>
+            </div>
+          )}
         </div>
 
         <div className={`p-4 rounded-lg mb-6 ${isQuiz ? 'bg-blue-50' : 'bg-green-50'}`}>
@@ -108,40 +115,27 @@ const Thanks: React.FC = () => {
           </p>
         </div>
 
-        <Link
-          to="/home"
-          className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          <Home className="h-4 w-4" />
-            {canDownloadCertificate && (
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-600">Certificate:</span>
-                <span className="font-medium text-green-600">Available</span>
-              </div>
-            )}
-          <span>Return to Home</span>
-        </Link>
+        <div className="flex flex-col space-y-3">
+          {canDownloadCertificate && (
+            <button
+              onClick={downloadCertificate}
+              className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+            >
+              <Download className="h-4 w-4" />
+              <span>Download Certificate</span>
+            </button>
+          )}
+          <Link
+            to="/home"
+            className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          >
+            <Home className="h-4 w-4" />
+            <span>Return to Home</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Thanks;
-      <div className="flex flex-col space-y-3">
-        {canDownloadCertificate && (
-          <button
-            onClick={downloadCertificate}
-            className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
-          >
-            <Download className="h-4 w-4" />
-            <span>Download Certificate</span>
-          </button>
-        )}
-        <Link
-          to="/home"
-          className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          <Home className="h-4 w-4" />
-          <span>Return to Home</span>
-        </Link>
-      </div>
