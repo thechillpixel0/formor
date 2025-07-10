@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Eye, BarChart3, Clock, Users, FileText, Brain, ClipboardList, Award, Bell, X } from 'lucide-react';
+import GuideSystem from '../components/GuideSystem';
+import { dashboardGuideSteps } from '../hooks/useGuide';
+import ContextualHelp, { dashboardTips } from '../components/ContextualHelp';
 import { storage } from '../utils/storage';
 import { formatDate } from '../utils';
 
@@ -74,6 +77,14 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-8">
+      <GuideSystem
+        steps={dashboardGuideSteps}
+        storageKey="dashboard"
+        autoStart={forms.length === 0}
+      />
+      
+      <ContextualHelp tips={dashboardTips} page="dashboard" />
+      
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>

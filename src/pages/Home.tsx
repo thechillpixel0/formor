@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, BarChart3, Brain, ClipboardList, Users, Clock, Shield, Award } from 'lucide-react';
+import SmartOnboarding from '../components/SmartOnboarding';
 import { storage } from '../utils/storage';
 
 const Home: React.FC = () => {
@@ -18,6 +19,8 @@ const Home: React.FC = () => {
 
   return (
     <div className="space-y-8">
+      <SmartOnboarding />
+      
       {/* Hero Section */}
       <div className="text-center">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
