@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Download, Users, Clock, BarChart3, Eye, Flag, Award, Brain, ClipboardList, FileText, Filter, User, CheckCircle, XCircle, GitBranch, Lightbulb, Wrench, Settings, Bell, X } from 'lucide-react';
-import GuideSystem from '../components/GuideSystem';
-import { analyticsGuideSteps } from '../hooks/useGuide';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 import { storage } from '../utils/storage';
 import { formatDate, formatTime, downloadJSON } from '../utils';
@@ -160,12 +158,6 @@ const FormAnalytics: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <GuideSystem
-        steps={analyticsGuideSteps}
-        storageKey="analytics"
-        autoStart={responses.length > 0}
-      />
-      
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link

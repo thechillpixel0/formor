@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, useParams } from 'react-router-dom';
 import { Save, Send, Upload, Edit3, Brain, ClipboardList } from 'lucide-react';
-import GuideSystem from '../components/GuideSystem';
-import { createFormGuideSteps } from '../hooks/useGuide';
-import ContextualHelp, { createFormTips } from '../components/ContextualHelp';
 import { Form, Question } from '../types';
 import { storage } from '../utils/storage';
 import { generateId } from '../utils';
@@ -37,7 +34,6 @@ const CreateForm: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [activeTab, setActiveTab] = useState<'manual' | 'bulk'>('manual');
   const [isSaving, setIsSaving] = useState(false);
-  const [showGuide, setShowGuide] = useState(false);
 
   useEffect(() => {
     if (isEditing && actualFormId) {
@@ -115,15 +111,6 @@ const CreateForm: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
-      <GuideSystem
-        steps={createFormGuideSteps}
-        storageKey="create-form"
-        autoStart={!isEditing}
-        onComplete={() => setShowGuide(false)}
-      />
-      
-      <ContextualHelp tips={createFormTips} page="create-form" />
-      
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
