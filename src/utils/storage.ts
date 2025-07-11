@@ -5,6 +5,55 @@ class StorageManager {
     return `formora_${type}`;
   }
 
+  // Universal form sharing methods
+  exportFormData(formId: string): string {
+    const form = this.getForm(formId);
+    const questions = this.getQuestions(formId);
+    
+    if (!form) return '';
+    
+    const formData = {
+      form,
+      questions,
+      timestamp: new Date().toISOString()
+    };
+    
+    return btoa(JSON.stringify(formData));
+  }
+
+  importFormData(encodedData: string): boolean {
+    try {
+      const formData = JSON.parse(atob(encodedData));
+      
+      // Save form and questions to current device
+      this.saveForm(formData.form);
+      formData.questions.forEach((question: any) => {
+        this.saveQuestion(question);
+      });
+      
+      return true;
+    } catch (error) {
+      console.error('Failed to import form data:', error);
+      return false;
+    }
+  }
+
+  // Check if form exists, if not try to load from URL
+  ensureFormExists(formId: string): boolean {
+    const form = this.getForm(formId);
+    if (form) return true;
+    
+    // Try to load from URL parameters or shared data
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedData = urlParams.get('data');
+    
+    if (sharedData) {
+      return this.importFormData(sharedData);
+    }
+    
+    return false;
+  }
+
   // Forms
   getForms(): Form[] {
     const data = localStorage.getItem(this.getKey('forms'));

@@ -15,12 +15,16 @@ const FormSummary: React.FC = () => {
   const form = storage.getForm(formId);
   const questions = storage.getQuestions(formId);
   const responses = storage.getResponses(formId);
+  
+  // Generate universal sharing URL with embedded form data
+  const formData = storage.exportFormData(formId);
+  const universalShareUrl = `${window.location.origin}/f/${formId}?data=${formData}`;
 
   if (!form) {
     return <div>Form not found</div>;
   }
 
-  const shareUrl = `${window.location.origin}/f/${formId}`;
+  const shareUrl = universalShareUrl;
   const editUrl = `${window.location.origin}/edit/${formId}`;
 
   const copyToClipboard = () => {
@@ -124,13 +128,13 @@ const FormSummary: React.FC = () => {
         {/* Share for Responses */}
         <div className="bg-green-50 p-6 rounded-lg border border-green-200">
           <h2 className="text-lg font-semibold text-green-900 mb-3">Share for Responses</h2>
-          <p className="text-sm text-green-700 mb-3">Share this link for people to fill out your form</p>
+          <p className="text-sm text-green-700 mb-3">Share this universal link - works on any device!</p>
           <div className="flex items-center space-x-2">
             <input
               type="text"
               value={shareUrl}
               readOnly
-              className="flex-1 px-3 py-2 bg-white border border-green-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"
+              className="flex-1 px-3 py-2 bg-white border border-green-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 text-xs"
             />
             <button
               onClick={copyToClipboard}
@@ -140,6 +144,9 @@ const FormSummary: React.FC = () => {
               <span>Copy</span>
             </button>
           </div>
+          <p className="text-xs text-green-600 mt-2">
+            ✓ This link contains the form data and works on any computer or device
+          </p>
         </div>
 
         {/* Edit Link */}

@@ -40,11 +40,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Link
                 to="/home"
                 className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive('/home') || location.pathname === '/home'
+                  isActive('/home')
                     ? 'text-white'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
-                style={isActive('/home') || location.pathname === '/home' ? { backgroundColor: brandSettings.primaryColor } : {}}
+                style={isActive('/home') ? { backgroundColor: brandSettings.primaryColor } : {}}
               >
                 <Home className="h-4 w-4" />
                 <span>Home</span>
