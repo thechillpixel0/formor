@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ClipboardList, BarChart3, Plus, Home, Settings, Bell, BookOpen, BookText } from 'lucide-react';
+import { ClipboardList, BarChart3, Plus, Home, Settings, Bell, BookOpen, BookText, Users } from 'lucide-react';
 import { storage } from '../utils/storage';
 
 interface LayoutProps {
