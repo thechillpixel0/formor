@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookText, Plus, BarChart3, Settings, BookOpen, Lightbulb, Wrench, Award, Zap, Bell, Eye } from 'lucide-react';
+import { BookText, Plus, BarChart3, Settings, BookOpen, Lightbulb, Award, Bell, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Guide: React.FC = () => {
@@ -82,7 +82,7 @@ const Guide: React.FC = () => {
       <div className="bg-white p-8 rounded-lg shadow-sm border">
         <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center space-x-2">
           <Settings className="h-6 w-6 text-orange-600" />
-          <span>Advanced Customization</span>
+          <span>Advanced Features</span>
         </h2>
         <p className="text-gray-700 mb-4">
           Formora offers powerful tools to customize your forms and manage responses:
@@ -98,29 +98,11 @@ const Guide: React.FC = () => {
             </div>
           </div>
           <div className="flex items-start space-x-3">
-            <Wrench className="h-5 w-5 text-teal-600 flex-shrink-0" />
-            <div>
-              <h3 className="font-semibold text-gray-900">Bulk Tools & Export</h3>
-              <p className="text-sm text-gray-600">
-                Manage multiple responses, add tags, and export data in various formats.
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start space-x-3">
             <Award className="h-5 w-5 text-yellow-600 flex-shrink-0" />
             <div>
               <h3 className="font-semibold text-gray-900">Certificate Editor</h3>
               <p className="text-sm text-gray-600">
                 Design and enable custom certificates for quiz completions.
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start space-x-3">
-            <Zap className="h-5 w-5 text-red-600 flex-shrink-0" />
-            <div>
-              <h3 className="font-semibold text-gray-900">Form Logic</h3>
-              <p className="text-sm text-gray-600">
-                Add conditional rules to make your forms dynamic and interactive.
               </p>
             </div>
           </div>
@@ -145,22 +127,63 @@ const Guide: React.FC = () => {
         </div>
       </div>
 
+      {/* Sharing Forms */}
+      <div className="bg-white p-8 rounded-lg shadow-sm border">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Sharing Your Forms</h2>
+        <p className="text-gray-700 mb-4">
+          Once you've created a form, you can easily share it with others:
+        </p>
+        <ol className="list-decimal list-inside space-y-2 text-gray-700">
+          <li>Publish your form from the Create page or Form Summary.</li>
+          <li>Copy the universal sharing link from the Form Summary page.</li>
+          <li>Share the link via email, social media, or any other method.</li>
+          <li>Recipients can access and complete the form on any device.</li>
+          <li>View responses and analytics in your Dashboard.</li>
+        </ol>
+      </div>
+
+      {/* Tips and Best Practices */}
+      <div className="bg-white p-8 rounded-lg shadow-sm border">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Tips and Best Practices</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-2">For Quizzes:</h3>
+            <ul className="list-disc list-inside space-y-1 text-gray-700">
+              <li>Set clear point values for each question</li>
+              <li>Provide explanations for correct answers</li>
+              <li>Use a mix of question types for engagement</li>
+              <li>Enable certificates for motivation</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-2">For Surveys:</h3>
+            <ul className="list-disc list-inside space-y-1 text-gray-700">
+              <li>Keep questions clear and concise</li>
+              <li>Use rating scales for quantitative feedback</li>
+              <li>Include open-ended questions for insights</li>
+              <li>Test your survey before sharing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       {/* General Settings */}
       <div className="bg-white p-8 rounded-lg shadow-sm border">
         <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center space-x-2">
           <Settings className="h-6 w-6 text-gray-600" />
-          <span>General Settings</span>
+          <span>Customization</span>
         </h2>
         <p className="text-gray-700 mb-4">
-          Manage your application's branding and overall behavior from the <Link to="/settings" className="text-blue-600 hover:underline">Settings</Link> page.
+          Personalize your Formora experience from the <Link to="/settings" className="text-blue-600 hover:underline">Settings</Link> page:
         </p>
         <ul className="list-disc list-inside space-y-2 text-gray-700">
-          <li>Customize your brand name, logo, and primary color.</li>
-          <li>Toggle the "Powered by Formora" footer.</li>
+          <li>Customize your brand name, logo, and primary color</li>
+          <li>Toggle the "Powered by Formora" footer</li>
+          <li>Preview changes before applying them</li>
         </ul>
         <Link to="/settings" className="inline-flex items-center space-x-2 px-4 py-2 mt-6 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
           <Settings className="h-4 w-4" />
-          <span>Adjust Settings</span>
+          <span>Customize Settings</span>
         </Link>
       </div>
     </div>
@@ -168,4 +191,3 @@ const Guide: React.FC = () => {
 };
 
 export default Guide;
-```

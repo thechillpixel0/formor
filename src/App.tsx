@@ -11,21 +11,16 @@ import Dashboard from './pages/Dashboard';
 import FormAnalytics from './pages/FormAnalytics';
 import ExportTools from './pages/ExportTools';
 import UserDetail from './pages/UserDetail';
-import AdminUsers from './pages/AdminUsers';
 import Settings from './pages/Settings';
 import CertificateEditor from './pages/CertificateEditor';
 import FormLogic from './pages/FormLogic';
 import NotificationSettings from './pages/NotificationSettings';
 import CustomEndPage from './pages/CustomEndPage';
-import RoleManagement from './pages/RoleManagement';
 import Guide from './pages/Guide';
 import Library from './pages/Library';
-import VersionControl from './pages/VersionControl';
 import Insights from './pages/Insights';
 import Recommendations from './pages/Recommendations';
-import WorkflowBuilder from './pages/WorkflowBuilder';
 import BulkTools from './pages/BulkTools';
-import Collections from './pages/Collections';
 
 function App() {
   return (
