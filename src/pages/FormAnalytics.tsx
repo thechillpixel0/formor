@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Download, Users, Clock, BarChart3, Eye, Flag, Award, Brain, ClipboardList, FileText, Filter, User, CheckCircle, XCircle, GitBranch, Lightbulb, Wrench, Settings, Bell, X } from 'lucide-react';
+import { ArrowLeft, Download, Users, Clock, BarChart3, Eye, Flag, Award, Brain, ClipboardList, FileText, User, CheckCircle, XCircle, Lightbulb, Wrench, Settings, Bell, X } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 import { storage } from '../utils/storage';
 import { formatDate, formatTime, downloadJSON } from '../utils';
@@ -180,13 +180,6 @@ const FormAnalytics: React.FC = () => {
           </div>
         </div>
         <div className="flex space-x-3">
-          <Link
-            to={`/versions/${formId}`}
-            className="flex items-center space-x-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-          >
-            <GitBranch className="h-4 w-4" />
-            <span>Versions</span>
-          </Link>
           <Link
             to={`/dashboard/${formId}/insights`}
             className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"

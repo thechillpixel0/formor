@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ClipboardList, BarChart3, Plus, Home, Settings, Users, Bell, BookOpen, Workflow, FolderOpen } from 'lucide-react';
+import { ClipboardList, BarChart3, Plus, Home, Settings, Bell, BookOpen, BookText } from 'lucide-react';
 import { storage } from '../utils/storage';
 
 interface LayoutProps {
@@ -90,29 +90,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </Link>
               
               <Link
-                to="/workflow-builder"
+                to="/guide"
                 className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive('/workflow-builder')
+                  isActive('/guide')
                     ? 'text-white'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
-                style={isActive('/workflow-builder') ? { backgroundColor: brandSettings.primaryColor } : {}}
+                style={isActive('/guide') ? { backgroundColor: brandSettings.primaryColor } : {}}
               >
-                <Workflow className="h-4 w-4" />
-                <span>Workflows</span>
-              </Link>
-              
-              <Link
-                to="/collections"
-                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive('/collections')
-                    ? 'text-white'
-                    : 'text-gray-500 hover:text-gray-700'
-                }`}
-                style={isActive('/collections') ? { backgroundColor: brandSettings.primaryColor } : {}}
-              >
-                <FolderOpen className="h-4 w-4" />
-                <span>Collections</span>
+                <BookText className="h-4 w-4" />
+                <span>Guide</span>
               </Link>
               
               <Link
@@ -122,7 +109,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     ? 'text-white'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
-                style={isActive('/admin') ? { backgroundColor: brandSettings.primaryColor } : {}}
+                style={isActive('/settings') ? { backgroundColor: brandSettings.primaryColor } : {}}
               >
                 <Users className="h-4 w-4" />
                 <span>Team</span>

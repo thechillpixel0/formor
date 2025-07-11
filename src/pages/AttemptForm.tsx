@@ -247,7 +247,7 @@ const AttemptForm: React.FC = () => {
       if (form.type === 'quiz' && form.showResults && results) {
         setQuizResults(results);
         setCurrentStep('results');
-      } else {
+      } else { // Always navigate to Thanks page if not showing results immediately
         navigate('/thanks', { 
           state: { 
             formTitle: form.title, 

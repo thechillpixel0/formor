@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, Link, useParams } from 'react-router-dom';
-import { CheckCircle, Home, Award, Brain, ClipboardList, Download } from 'lucide-react';
+import { CheckCircle, Award, Brain, ClipboardList, Download, Plus, BookOpen } from 'lucide-react';
 import { formatDate } from '../utils';
 import { storage } from '../utils/storage';
 
@@ -125,12 +125,21 @@ const Thanks: React.FC = () => {
               <span>Download Certificate</span>
             </button>
           )}
+          {/* Changed from "Return to Home" to "Create Your Own Form" */}
           <Link
-            to="/home"
+            to="/create"
             className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
-            <Home className="h-4 w-4" />
-            <span>Return to Home</span>
+            <Plus className="h-4 w-4" />
+            <span>Create Your Own Form</span>
+          </Link>
+          {/* Added "Explore Templates" option */}
+          <Link
+            to="/library"
+            className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+          >
+            <BookOpen className="h-4 w-4" />
+            <span>Explore Templates</span>
           </Link>
         </div>
       </div>

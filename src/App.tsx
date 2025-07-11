@@ -18,6 +18,7 @@ import FormLogic from './pages/FormLogic';
 import NotificationSettings from './pages/NotificationSettings';
 import CustomEndPage from './pages/CustomEndPage';
 import RoleManagement from './pages/RoleManagement';
+import Guide from './pages/Guide';
 import Library from './pages/Library';
 import VersionControl from './pages/VersionControl';
 import Insights from './pages/Insights';
@@ -80,24 +81,9 @@ function App() {
             <UserDetail />
           </Layout>
         } />
-        <Route path="/admin/users" element={
-          <Layout>
-            <AdminUsers />
-          </Layout>
-        } />
-        <Route path="/admin/roles" element={
-          <Layout>
-            <RoleManagement />
-          </Layout>
-        } />
         <Route path="/library" element={
           <Layout>
             <Library />
-          </Layout>
-        } />
-        <Route path="/versions/:formId" element={
-          <Layout>
-            <VersionControl />
           </Layout>
         } />
         <Route path="/dashboard/:formId/insights" element={
@@ -110,19 +96,9 @@ function App() {
             <Recommendations />
           </Layout>
         } />
-        <Route path="/workflow-builder" element={
-          <Layout>
-            <WorkflowBuilder />
-          </Layout>
-        } />
         <Route path="/dashboard/:formId/tools" element={
           <Layout>
             <BulkTools />
-          </Layout>
-        } />
-        <Route path="/collections" element={
-          <Layout>
-            <Collections />
           </Layout>
         } />
         <Route path="/certificate-editor/:formId" element={
@@ -148,6 +124,11 @@ function App() {
         <Route path="/settings" element={
           <Layout>
             <Settings />
+          </Layout>
+        } />
+        <Route path="/guide" element={
+          <Layout>
+            <Guide />
           </Layout>
         } />
         
