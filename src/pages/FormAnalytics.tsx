@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Download, Users, Clock, BarChart3, Eye, Flag, Award, Brain, ClipboardList, FileText, User, CheckCircle, XCircle, Lightbulb, Wrench, Settings, Bell, X } from 'lucide-react';
+import { ArrowLeft, Download, Users, Clock, BarChart3, Eye, Flag, Award, Brain, ClipboardList, FileText, User, CheckCircle, XCircle, Lightbulb, Settings, Bell } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 import { storage } from '../utils/storage';
 import { formatDate, formatTime, downloadJSON } from '../utils';

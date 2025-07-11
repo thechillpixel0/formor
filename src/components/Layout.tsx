@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ClipboardList, BarChart3, Plus, Home, Settings, Bell, BookOpen, BookText, Users } from 'lucide-react';
+import { ClipboardList, BarChart3, Plus, Home, Settings, Bell, BookOpen, BookText } from 'lucide-react';
 import { storage } from '../utils/storage';
 
 interface LayoutProps {
@@ -101,20 +101,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <BookText className="h-4 w-4" />
                 <span>Guide</span>
               </Link>
-              
-              <Link
-                to="/admin/users"
-                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive('/admin')
-                    ? 'text-white'
-                    : 'text-gray-500 hover:text-gray-700'
-                }`}
-                style={isActive('/settings') ? { backgroundColor: brandSettings.primaryColor } : {}}
-              >
-                <Users className="h-4 w-4" />
-                <span>Team</span>
-              </Link>
-              
+
               <Link
                 to="/settings"
                 className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
