@@ -1,4 +1,3 @@
-```tsx
 import React from 'react';
 import { BookText, Plus, BarChart3, Settings, BookOpen, Lightbulb, Wrench, Award, Zap, Bell, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
